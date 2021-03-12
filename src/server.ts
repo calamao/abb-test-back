@@ -1,4 +1,6 @@
 /* eslint-disable import/first */
+/* eslint-disable */
+
 import dotenv from 'dotenv';
 
 const result = dotenv.config();
@@ -10,6 +12,8 @@ import util from 'util';
 import app from './app';
 import MongoConnection from './mongo-connection';
 import logger from './logger';
+import { createTestData } from './models/test-data/part-data';
+import { initSocket } from './socket';
 
 let debugCallback = null;
 if (process.env.NODE_ENV === 'development') {
@@ -23,6 +27,9 @@ if (process.env.NODE_ENV === 'development') {
   };
 }
 
+let http = require("http").Server(app);
+initSocket(http);
+
 const mongoConnection = new MongoConnection(process.env.MONGO_URL, debugCallback);
 
 if (process.env.MONGO_URL == null) {
@@ -31,8 +38,11 @@ if (process.env.MONGO_URL == null) {
 } else {
   mongoConnection.connect(() => {
     const port = app.get('port');
-    app.listen(app.get('port'), (): void => {
+    http.listen(app.get('port'), (): void => {
       logger.debug(`🌏 Express server started at http://localhost:${port}`);
+
+      // create test data for demo purposes
+      createTestData();
       if (process.env.NODE_ENV === 'development') {
         // This route is only present in development mode
         logger.debug(`⚙️  Swagger UI hosted at http://localhost:${port}/dev/api-docs`);

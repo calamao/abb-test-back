@@ -21,7 +21,9 @@ const logTransports = [
       }
     })
   }),
-  new ConsoleLoggerTransport()
+  new ConsoleLoggerTransport({
+    level: 'info'
+  })
 ];
 
 const logger = createLogger({
