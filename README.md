@@ -35,7 +35,7 @@ $ git clone git@github.com:calamao/abb-test-back.git your-app-name
 $ cd your-app-name
 ```
 
-#### 2. Install packages
+#### 2. Install packages (optional)
 This step is not necessary if you just want to start using the server via Docker.
 
 ```shell
@@ -52,8 +52,7 @@ docker-compose -f docker-compose.yml -f docker-compose.dev.yml up --build
 ---
 
 ## Next Steps
-For the next steps check the 'unified' next steps section in the corresponding web-app repository which consumes this backend:
-* 🌏**Web-app repo** go to [web-app repo](https://github.com/calamao/abb-test-front)
+For the next steps check the 'unified' next steps section in the corresponding frontend repository which consumes this backend.
 
 
 ---
